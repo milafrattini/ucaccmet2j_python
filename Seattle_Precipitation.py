@@ -50,8 +50,6 @@ with open ("precipitation.json", encoding='utf-8') as file:
             "relative_monthly_precipitation" : relative_monthly_precipitation
         },
     }
-    
-    with open("results.json", "w") as file:
-        json.dump(results, file, indent=3) 
+    print(results)
 
    
