@@ -4,7 +4,7 @@ from csv import DictReader
 with open ("precipitation.json", encoding='utf-8') as file: 
     precipitation_list = json.load(file)
 
-#.1 seattle
+#.1 seattle station 
     station_code_seattle = "GHCND:US1WAKG0038" 
     
     seattle_measurements = []
@@ -14,19 +14,21 @@ with open ("precipitation.json", encoding='utf-8') as file:
             seattle_measurements.append(dic) 
             dic["date"] = dic["date"].split("-") 
     
-    #total precipitation per month
+    #total precipitation per month, month and corresponding value in dictionary
     total_per_month = {}
-    results_monthly_list = []
     for dic in seattle_measurements:
         if dic["date"][1] in total_per_month:
             total_per_month[dic["date"][1]] = total_per_month[dic["date"][1]] + dic["value"]
         elif dic["date"][1] not in total_per_month: 
                total_per_month[dic["date"][1]] = dic["value"]
 
+    #precipitation values in a list     
+    results_monthly_list = []
     for key, value in total_per_month.items():
         results_monthly_list.append(value)
 
 #.2 
+    #yearly precipitation in seattle 
     total_per_year = 0 
     
     for i in results_monthly_list: 
@@ -38,6 +40,7 @@ with open ("precipitation.json", encoding='utf-8') as file:
         ratio = m / total_per_year
         relative_monthly_precipitation.append(round(ratio, 2))
     
+    #writing & formatting results
     results = {
         "Seattle": {
             "station": "GHCND:US1WAKG0038", 
@@ -51,9 +54,11 @@ with open ("precipitation.json", encoding='utf-8') as file:
     with open("results.json", "w") as file:
         json.dump(results, file, indent=3) 
 
-#.3 all of the above, for each location 
-        
+#.3 
+    #all of the above, for each location    
     with open('stations.csv') as file:
         reader = DictReader(file)
         items = list(reader)
+
+        print(items)
 
