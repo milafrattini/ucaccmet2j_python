@@ -10,7 +10,7 @@ with open ("precipitation.json", encoding='utf-8') as file:
     seattle_measurements = []
 
     for dic in precipitation_list: 
-        if dic["station"] == "GHCND:US1WAKG0038": 
+        if dic["station"] == station_code_seattle: 
             seattle_measurements.append(dic) 
             dic["date"] = dic["date"].split("-") 
     
@@ -31,8 +31,8 @@ with open ("precipitation.json", encoding='utf-8') as file:
     #yearly precipitation in seattle 
     total_per_year = 0 
     
-    for i in results_monthly_list: 
-        total_per_year = total_per_year + i
+    for month in results_monthly_list: 
+        total_per_year = total_per_year + month
 
     #relative monthly precipitation 
     relative_monthly_precipitation = []
@@ -43,7 +43,7 @@ with open ("precipitation.json", encoding='utf-8') as file:
     #writing & formatting results
     results = {
         "Seattle": {
-            "station": "GHCND:US1WAKG0038", 
+            "station": station_code_seattle, 
             "state" : "WA",
             "total_monthly_precipitation" : results_monthly_list,
             "total_yearly_precipitation" : total_per_year, 
@@ -54,11 +54,4 @@ with open ("precipitation.json", encoding='utf-8') as file:
     with open("results.json", "w") as file:
         json.dump(results, file, indent=3) 
 
-#.3 
-    #all of the above, for each location    
-    with open('stations.csv') as file:
-        reader = DictReader(file)
-        items = list(reader)
-
-        print(items)
-
+   
