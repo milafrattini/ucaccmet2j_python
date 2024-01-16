@@ -3,7 +3,7 @@ import json
 with open ("precipitation.json", encoding='utf-8') as file: 
     precipitation_list = json.load(file)
 
-#.1 
+#.1 seattle
     station_code_seattle = "GHCND:US1WAKG0038" 
     
     seattle_measurements = []
@@ -24,6 +24,9 @@ with open ("precipitation.json", encoding='utf-8') as file:
 
     for key, value in total_per_month.items():
         results_monthly_list.append(value)
+    
+    with open("results.json", "w") as file:
+        json.dump(results_monthly_list, file, indent=3) 
 
 #.2 
     total_per_year = 0 
@@ -37,6 +40,10 @@ with open ("precipitation.json", encoding='utf-8') as file:
         ratio = m / total_per_year
         relative_monthly_precipitation.append(round(ratio, 2))
     
-         
+
+    
+#.3 all of the above, for each location 
+        
+    
 
 
